@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 class="card-title mb-4">Oops! An Error Occurred</h2>
+                <p class="card-text">{{ top }}</p>
+                <p class="card-text text-muted">{{ bottom }}</p>
+                <a href="/" class="btn btn-primary mt-3">Return to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

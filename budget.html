@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<h2 class="mb-4">Budget Management</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Income</h5>
+                <p class="card-text fs-4">{{ total_income|usd }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Expenses</h5>
+                <p class="card-text fs-4">{{ total_expenses|usd }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Net</h5>
+                <p class="card-text fs-4">{{ (total_income - total_expenses)|usd }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Add Transaction</h5>
+        <form action="/budget" method="post">
+            <div class="mb-3">
+                <select name="category" class="form-select" required>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="number" name="amount" step="0.01" class="form-control" placeholder="Amount" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="description" class="form-control" placeholder="Description/Category" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Transaction</button>
+        </form>
+    </div>
+</div>
+
+<h3 class="mb-3">Recent Transactions</h3>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.category }}</td>
+                <td>{{ transaction.amount|usd }}</td>
+                <td>{{ transaction.description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
